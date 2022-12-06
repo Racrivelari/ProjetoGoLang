@@ -28,8 +28,6 @@ func main() {
 
 	router.HandleFunc("/product/{id}", handler.UpdateById).Methods("PUT")
 
-	// router.HandleFunc("/products/{id}", server.GetProduct).Methods("READ")
-
 	fmt.Println("Escutando na porta 5000")
 	log.Fatal(http.ListenAndServe(":5000", router))
 }
