@@ -1,4 +1,5 @@
 •CRUD COMPLETO
-•AJUSTAR TRIGGER DE UPDATE NO BD
+•BD COMPLETO
+•SUBIR AWS O BD
 
 •pra rodar, abrir terminal a partir do pacote cmd, inserir comando: go run main.go, e fazer requisicoes no postman

@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS Product (
   price_prod VARCHAR(45) NOT NULL,
   code_prod VARCHAR(45) NOT NULL,
   created_at datetime NULL DEFAULT NOW(),
-  updated_at datetime NULL DEFAULT NOW(),
   Unique(code_prod));
   
 CREATE TABLE IF NOT EXISTS User (
@@ -20,21 +19,41 @@ CREATE TABLE IF NOT EXISTS User (
   senha_user VARCHAR(45) NOT NULL,
   Unique(email_user)); 
   
+CREATE TABLE IF NOT EXISTS Logs  (
+	id_log integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    updated_at datetime NULL DEFAULT NOW(),
+    id_prod INT NOT NULL,
+	constraint fk_product_log foreign key (id_prod) references Product(id_prod)
+);
+
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Iphone", "5000", "cel1");
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Galaxy S22", "4000", "cel2");
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Pocophone", "1000", "cel3");
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Windows Phone", "1000", "cel4");
   
 select * from product;
-    
+select * from logs;
+
+
+DELIMITER $$
+
+CREATE TRIGGER product_update
+AFTER UPDATE
+ON Product FOR EACH ROW
+BEGIN
+        INSERT INTO Logs(id_prod,updated_at)
+        VALUES(old.id_prod, new.updated_at);
+END$$
+
+DELIMITER ;
+
+update product set price_prod = "1200" where id_prod = 1
+
+
+
+
+
+
   
--- CREATE TRIGGER Product_updated_at_trigger
---          AFTER UPDATE
---             ON Product
---       FOR EACH ROW
--- BEGIN
---     UPDATE Product
---        SET updated_at = datetime('now', 'localtime') 
---      WHERE id_prod = NEW.id_prod
--- END;
+
   
