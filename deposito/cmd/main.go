@@ -22,6 +22,12 @@ func main() {
 
 	router.HandleFunc("/products", handler.GetAllProducts).Methods("GET")
 
+	router.HandleFunc("/products/{id}", handler.GetById).Methods("GET")
+
+	router.HandleFunc("/product/{id}", handler.DeleteById).Methods("DELETE")
+
+	router.HandleFunc("/product/{id}", handler.UpdateById).Methods("PUT")
+
 	// router.HandleFunc("/products/{id}", server.GetProduct).Methods("READ")
 
 	fmt.Println("Escutando na porta 5000")

@@ -14,30 +14,27 @@ CREATE TABLE IF NOT EXISTS Product (
   updated_at datetime NULL DEFAULT NOW(),
   Unique(code_prod));
   
--- CREATE TABLE IF NOT EXISTS User (
---   id_user integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
---   email_user VARCHAR(45) NOT NULL,
---   senha_user VARCHAR(45) NOT NULL,
---   Unique(email_user)); 
---   
+CREATE TABLE IF NOT EXISTS User (
+  id_user integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  email_user VARCHAR(45) NOT NULL,
+  senha_user VARCHAR(45) NOT NULL,
+  Unique(email_user)); 
   
-CREATE TRIGGER Product_updated_at_trigger
-         AFTER UPDATE
-            ON Product
-      FOR EACH ROW
-BEGIN
-    UPDATE Product
-       SET updated_at = datetime('now', 'localtime') 
-     WHERE id_prod = NEW.id_prod
-END;
-  
-select * from product;
-  
-
- 
-
-
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Iphone", "5000", "cel1");
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Galaxy S22", "4000", "cel2");
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Pocophone", "1000", "cel3");
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Windows Phone", "1000", "cel4");
+  
+select * from product;
+    
+  
+-- CREATE TRIGGER Product_updated_at_trigger
+--          AFTER UPDATE
+--             ON Product
+--       FOR EACH ROW
+-- BEGIN
+--     UPDATE Product
+--        SET updated_at = datetime('now', 'localtime') 
+--      WHERE id_prod = NEW.id_prod
+-- END;
+  
