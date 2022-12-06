@@ -1,7 +1,8 @@
 package handler
 
 import (
-	// "deposito/entity"
+	"deposito/entity" //pra esse import funcionar, na struct devo declarar a primeira letra do nome dela como maiuscula, ex: Product, invés de product, isso q determina se ela é public ou private
+
 	"deposito/banco"
 	"encoding/json"
 	"fmt"
@@ -11,15 +12,6 @@ import (
 	_ "github.com/gorilla/mux"
 )
 
-type product struct { //NOME DE VARIAVEL TEM Q SER MAISUCULA POR CAUSA DO JSON
-	ID        uint32 `json:"id"`
-	Name      string `json:"name_prod"`
-	Price     string `json:"price_prod"`
-	Code      string `json:"code_prod"`
-	CreatedAt string `json:"created_at,omitempty"`
-	UpdatedAt string `json:"updated_at,omitempty"`
-}
-
 // insert product to database
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	corpoRequest, erro := ioutil.ReadAll(r.Body)
@@ -28,7 +20,8 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var product product
+	// var product product
+	var product entity.Product
 
 	if erro = json.Unmarshal(corpoRequest, &product); erro != nil {
 		w.Write([]byte("Erro ao converter produto em struct"))
@@ -85,9 +78,11 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	}
 	defer linhas.Close()
 
-	var products []product
+	// var products []product
+	var products []entity.Product
 	for linhas.Next() {
-		var product product
+		// var product product
+		var product entity.Product
 
 		if erro := linhas.Scan(&product.ID, &product.Name, &product.Price, &product.Code, &product.CreatedAt, &product.UpdatedAt); erro != nil {
 			w.Write([]byte("Erro escanear o produto"))

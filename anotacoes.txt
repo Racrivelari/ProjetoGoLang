@@ -1,0 +1,6 @@
+•ta rodando normal o bd, fazendo requisicao no postman pra inserir produto e listar todos os produtos do bd
+
+•ver como faz a trigger
+•continuar o crud 
+
+•pra rodar, abrir terminal a partir do pacote cmd, inserir comando: go run main.go, e fazer requisicoes no postman

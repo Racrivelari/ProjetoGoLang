@@ -1,6 +1,6 @@
 package entity
 
-type product struct { //NOME DE VARIAVEL TEM Q SER MAISUCULA POR CAUSA DO JSON
+type Product struct { //NOME DE VARIAVEL TEM Q SER MAISUCULA POR CAUSA DO JSON
 	ID        uint32 `json:"id"`
 	Name      string `json:"name_prod"`
 	Price     string `json:"price_prod"`
