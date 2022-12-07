@@ -31,8 +31,8 @@ INSERT INTO Product (name_prod, price_prod, code_prod) values ("Galaxy S22", "40
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Pocophone", "1000", "cel3");
 INSERT INTO Product (name_prod, price_prod, code_prod) values ("Windows Phone", "1000", "cel4");
   
-select * from product;
-select * from logs;
+select * from Product;
+select * from Logs;
 
 
 DELIMITER $$
