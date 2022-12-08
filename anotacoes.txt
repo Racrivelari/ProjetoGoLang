@@ -1,5 +1,4 @@
 •CRUD COMPLETO
-•BD COMPLETO
-•SUBIR AWS O BD
+•BD COMPLETO no RDS
 
 •pra rodar, abrir terminal a partir do pacote cmd, inserir comando: go run main.go, e fazer requisicoes no postman

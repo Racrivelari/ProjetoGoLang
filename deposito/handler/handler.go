@@ -1,16 +1,14 @@
 package handler
 
 import (
-	"deposito/entity" //pra esse import funcionar, na struct devo declarar a primeira letra do nome dela como maiuscula, ex: Product, invés de product, isso q determina se ela é public ou private
-	"strconv"
-
 	"deposito/banco"
+	"deposito/entity" //pra esse import funcionar, na struct devo declarar a primeira letra do nome dela como maiuscula, ex: Product, invés de product, isso q determina se ela é public ou private
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"io"
 	"net/http"
-
-	"github.com/gorilla/mux"
+	"strconv"
 )
 
 // insert product to database
@@ -70,7 +68,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	linhas, erro := db.Query("SELECT id_prod, name_prod, price_prod, code_prod FROM PRODUCT")
+	linhas, erro := db.Query("SELECT id_prod, name_prod, price_prod, code_prod FROM Product")
 	if erro != nil {
 		w.Write([]byte("Erro ao realizar busca"))
 		return
@@ -147,13 +145,24 @@ func DeleteById(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	statement, erro := db.Prepare("DELETE FROM Product where id_prod = ?")
+	statement, erro := db.Prepare("DELETE FROM Logs where id_prod = ?")
 	if erro != nil {
 		w.Write([]byte("Erro ao criar statement"))
 	}
 	defer statement.Close()
 
 	statement.Exec(ID)
+
+	statement2, erro := db.Prepare("DELETE FROM Product where id_prod = ?")
+	if erro != nil {
+		w.Write([]byte("Erro ao criar statement"))
+	}
+	defer statement2.Close()
+
+	if _, erro := statement2.Exec(ID); erro != nil {
+		w.Write([]byte(erro.Error()))
+		return
+	}
 
 	w.Write([]byte(fmt.Sprintf("Produto deletado com sucesso, id: %d", ID)))
 
@@ -186,7 +195,7 @@ func UpdateById(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	statement, erro := db.Prepare("UPDATE PRODUCT SET name_prod = ?, price_prod = ? where id_prod = ?")
+	statement, erro := db.Prepare("UPDATE Product SET name_prod = ?, price_prod = ? where id_prod = ?")
 	if erro != nil {
 		w.Write([]byte("Erro ao criar statement"))
 		return
