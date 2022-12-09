@@ -6,5 +6,4 @@ type Product struct { //NOME DE VARIAVEL TEM Q SER MAISUCULA POR CAUSA DO JSON
 	Price     string `json:"price_prod"`
 	Code      string `json:"code_prod"`
 	CreatedAt string `json:"created_at,omitempty"`
-	UpdatedAt string `json:"updated_at,omitempty"`
 }

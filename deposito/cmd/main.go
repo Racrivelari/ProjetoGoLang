@@ -10,18 +10,11 @@ import (
 
 func main() {
 
-	
-
 	// fs := http.FileServer(http.Dir("dist/spa"))
 	fs := http.FileServer(http.Dir("dist/spa/"))
 	
 
 	fmt.Println("CHEGOU AQ")
-
-	
-	
-
-
 
 	// create - post
 	// read - get
@@ -29,8 +22,6 @@ func main() {
 	// delete - delete
 
 	router := mux.NewRouter()
-
-	router.Handle("/webui", http.StripPrefix("/webui", fs))
 
 	router.HandleFunc("/products", handler.CreateProduct).Methods("POST")
 
@@ -40,7 +31,9 @@ func main() {
 
 	router.HandleFunc("/products/{id}", handler.DeleteById).Methods("DELETE")
 
-	router.HandleFunc("/products/{id}", handler.UpdateById).Methods("PUT")
+	router.HandleFunc("/products/{id}", handler.UpdateById).Methods	("PUT")
+
+	router.Handle("/webui", http.StripPrefix("/webui", fs))
 
 	fmt.Println("Escutando na porta 5000")
 	log.Fatal(http.ListenAndServe(":5000", router))
