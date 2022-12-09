@@ -10,19 +10,16 @@ import (
 
 func main() {
 
-	// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-	// 	fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
-	// })
-
-	// // fs := http.FileServer(http.Dir("dist/spa"))
-	// fs := http.FileServer(http.Dir("dist/"))
-	// http.Handle("/webui", http.StripPrefix("/webui", fs))
-
-	// fmt.Println("CHEGOU AQ")
-
-	// http.ListenAndServe(":5050", nil)
 	
-	// fmt.Println("CHEGOU AQ")
+
+	// fs := http.FileServer(http.Dir("dist/spa"))
+	fs := http.FileServer(http.Dir("dist/spa/"))
+	
+
+	fmt.Println("CHEGOU AQ")
+
+	
+	
 
 
 
@@ -32,6 +29,8 @@ func main() {
 	// delete - delete
 
 	router := mux.NewRouter()
+
+	router.Handle("/webui", http.StripPrefix("/webui", fs))
 
 	router.HandleFunc("/products", handler.CreateProduct).Methods("POST")
 
@@ -45,4 +44,5 @@ func main() {
 
 	fmt.Println("Escutando na porta 5000")
 	log.Fatal(http.ListenAndServe(":5000", router))
+
 }
